@@ -1,7 +1,5 @@
-import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {a} from '../style/style'
 const CustomInput = ({
   placeholder,
   iconName,
@@ -10,27 +8,15 @@ const CustomInput = ({
   secureTextEntry,
 }) => {
   return (
-    <View style={a.main}>
-      
-      
-        <Ionicons
-          name={iconName}
-          size={25}
-          color="#777"
-          style={a.icon}
-        />
-      {/* <View style={{position:'relative'}}>
-                        <Ionicons name="mail-outline" size={25} style={{position:'absolute',top:18,left:20,}}/>
-                        <TextInput placeholder='Email' style={a.Iinput} placeholderTextColor='#000' />
-                        </View> */}
-
+    <View style={styles.mainContainer}>
+      {iconName ? <Ionicons name={iconName} size={20} color="#691BFB" /> : null}
       <TextInput
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor='#000'
+        placeholderTextColor="#292D32"
         secureTextEntry={secureTextEntry}
-        style={a.Iinput}
+        style={styles.input}
       />
     </View>
   );
@@ -38,4 +24,21 @@ const CustomInput = ({
 
 export default CustomInput;
 
-
+const styles = StyleSheet.create({
+  mainContainer: {
+    width: '100%',
+    height: 70,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    borderWidth: 2,
+    borderColor: '#F9F9F9',
+    marginBottom: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    fontSize: 16,
+    lineHeight: 16 * 1.4,
+    paddingHorizontal: 10,
+  },
+});
