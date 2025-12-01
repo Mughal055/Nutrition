@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import {a} from '../../../style/style';
-import Header from '../../../components/header';
+import Header from '../../../components/Header';
 import Fonts from '../../../assets/fonts/Fonts'
 import Buttoon from '../../../components/Button'
 import CustomImage from '../../../components/CustomImage';
