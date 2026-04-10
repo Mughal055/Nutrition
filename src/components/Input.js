@@ -1,41 +1,65 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {a} from '../style/style'
-const CustomInput = ({
+
+
+
+const Input = ({
+  
+  icon,
   placeholder,
-  iconName,
   value,
   onChangeText,
-  secureTextEntry,
+  secureTextEntry = false,
+  keyboardType = 'default',
+  style,
 }) => {
+
   return (
-    <View style={a.main}>
-      
-      
-        <Ionicons
-          name={iconName}
-          size={25}
-          color="#777"
-          style={a.icon}
-        />
-      {/* <View style={{position:'relative'}}>
-                        <Ionicons name="mail-outline" size={25} style={{position:'absolute',top:18,left:20,}}/>
-                        <TextInput placeholder='Email' style={a.Iinput} placeholderTextColor='#000' />
-                        </View> */}
+    <View style={styles.container}>
+      <Icon name={icon} size={25} color="#666" style={a.icon} />
 
       <TextInput
+        placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
-        placeholder={placeholder}
-        placeholderTextColor='#000'
         secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
         style={a.Iinput}
+        placeholderTextColor="black"
       />
     </View>
   );
 };
 
-export default CustomInput;
+export default Input;
 
-
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // borderWidth: 1,
+    // borderColor: '#ddd',
+    // borderRadius: 10,
+     //paddingHorizontal: 12,
+    // marginVertical: 8,
+    // backgroundColor: '#fff',
+  },
+  icon: {
+    marginRight: 8,
+  },
+//   input: {
+//     paddingLeft:50,
+//  marginTop: 10,
+//   marginLeft:10,
+//   marginBottom:20,
+//   // paddingHorizontal:10,
+//   borderColor:'#837d7dff',
+//   padding:10,
+//   // width: width - 20,borderWidth: 1,
+ 
+//     height: 45,
+//     color: '#000',
+//   },
+});

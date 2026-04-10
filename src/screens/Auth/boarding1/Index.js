@@ -1,39 +1,55 @@
 import { View, Text } from 'react-native'
 import { StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import {a} from '../../../style/style';
-import Header from '../../../components/Header';
+import ItHeader from '../../../components/ItHeader'
 import Fonts from '../../../assets/fonts/Fonts'
 import Buttoon from '../../../components/Button'
-import CustomImage from '../../../components/CustomImage';
+import FoodTrack from '../../../components/FoodTrack';
+// import firestore from '@react-native-firebase/firestore';
 
 const Boarding1 = () => {
+  // const [gainData, setgainData] = useState(null)
+  // // 
+  // useEffect(() => {
+  //   getData();
+  // }, [])
+  // // 
+  // const getData = async ()=>{
+  //   try {
+  //     const dataa = await firestore().collection('testing').doc('test').get();
+  //      console.log(dataa)
+  //      setgainData(dataa.data)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
+  //  console.log('err')
    const navigation = useNavigation();
   return (
-    <View style={{flex:1}}>
-      <View></View>
-        <View style={{flex:1.5,justifyContent:'center',alignItems:'center'}}>
-        <Text style={a.food}>Food Track</Text>
-        </View>
-          <View style={{flex:1.5,justifyContent:'center',alignItems:'center'}}>
-          <CustomImage source={require('../../../assets/Img/Eating.png')}  />
-          </View>
-            <View style={{flex:1.5,width:'70%',marginLeft:50,justifyContent:'center',alignItems:'center'}}>
-            <Text style={a.title }>Eat Healthy</Text>
-            <Text style={a.para}>Maintaining good health should be the primary focus of everyone.</Text>
-            </View>
+    <View style={{flex:1,justifyContent:'center',alignItems:'center',padding:'10%'}}>
+      {/* <View style={{flex:1}}>
+        <Text>{gainData?gainData.name:'Loading..'}</Text>
+      </View> */}
+       <FoodTrack titlle='Food Track' source={require('../../../assets/Img/Eating.png')}/>
+           <ItHeader title='Eat Healthy' description='Maintaining good health should be the primary focus of everyone.' />
              
                 <View style={a.dot}>
                   <View style={a.dot1}></View>
                   <View style={a.dot2}></View>
                   <View style={a.dot3}></View>
                 </View>
-    <View style={{flex:1,marginVertical:15,}}>          
+    <View style={{flex:1}}>          
     <Buttoon
     onPress={() => navigation.navigate('Boarding2')} />
    </View> 
-   </View>
+
+   {/*  */}
+    {/*  */}
+
+
+ </View>
    
     
  )}

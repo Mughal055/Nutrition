@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-const {width} = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');``
 var a = StyleSheet.create({
     text:{
         fontSize:50,
@@ -36,14 +36,13 @@ var a = StyleSheet.create({
      },
      dot:{
       flex:1,
-      //  backgroundColor:'#691BFB',
       flexDirection:'row',
       justifyContent:'center',
       alignItems:'flex-end',
       marginBottom:2,
-      paddingBottom:0,
-      marginVertical:15,
-      marginTop:0,
+      // paddingBottom:0,
+      // marginVertical:15,
+      // marginTop:0,
      },
      dot1:{
       backgroundColor:'#691BFB',
@@ -91,17 +90,7 @@ texx:{
  fontSize:16,
  fontFamily:'Poppins-Medium'
 },
-badge:{
-  color:'#000',
-  fontSize:15,
-  fontWeight:'bold',
-  backgroundColor:'#FFF',
-  borderRadius:20,
-  padding:5,
-  paddingHorizontal:10,
-  paddingVertical:4,
-  position:'absolute',
-},
+
 Input:{
 
 borderWidth: 1,
@@ -111,7 +100,7 @@ borderWidth: 1,
   // paddingHorizontal:10,
   borderColor:'#837d7dff',
   padding:10,
-  width: width - 20,
+  width: width - 30,
 },
 Iinput:{
 paddingLeft:50,
@@ -132,6 +121,7 @@ borderWidth: 1,
     position: 'absolute',
     top: 18,
     left: 20,
+    marginRight: 8,
   },
 
  });

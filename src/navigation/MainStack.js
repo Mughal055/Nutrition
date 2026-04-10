@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from 'react-native';
+import React from 'react';
 
-export default function MainStack() {
+const MainStack = () => {
   return (
     <View>
       <Text>MainStack</Text>
     </View>
-  )
-}
+  );
+};
+export default MainStack;
