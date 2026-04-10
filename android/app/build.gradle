@@ -1,5 +1,8 @@
-apply plugin: "com.android.application"
-apply plugin: "com.facebook.react"
+plugins {
+    id 'com.android.application'
+    id 'com.facebook.react'
+    id 'com.google.gms.google-services'
+}
 
 android {
     namespace 'com.Nutrition' 
@@ -38,5 +41,3 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
 }
 
-// MUST stay at the very bottom
-apply plugin: 'com.google.gms.google-services'
