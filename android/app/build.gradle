@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'  // <--- Ye line lazmi add karein
     id 'com.facebook.react'
     id 'com.google.gms.google-services'
 }
@@ -14,30 +15,27 @@ android {
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
-        
-        // Helps avoid "method limit" errors with large libraries like Firebase
-        multiDexEnabled true 
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-        }
+    
+    // React Native 0.74+ builds ke liye ye zaroori hai
+    packagingOptions {
+        pickFirst '**/armeabi-v7a/libc++_shared.so'
+        pickFirst '**/arm64-v8a/libc++_shared.so'
+        pickFirst '**/x86/libc++_shared.so'
+        pickFirst '**/x86_64/libc++_shared.so'
     }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.facebook.react:react-native:+"
+    implementation("com.facebook.react:react-android") // Standard way
 
-    // 1. IMPORT THE FIREBASE BoM (Essential to manage versions)
-    implementation platform('com.google.firebase:firebase-bom:34.8.0')
-
-    // 2. ADD FIREBASE LIBRARIES (No versions or -ktx needed here now)
+    // Firebase libraries (Autolinking handle kar lega, but manually rakhi hain toh version clash na ho)
+    implementation platform('com.google.firebase:firebase-bom:34.10.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-firestore'
 }
 
+// AGAR aap React Native 0.74+ use kar rahe hain, toh is line ko DELETE ya Comment kar dein
+// apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
