@@ -1,17 +1,22 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
     id 'com.facebook.react'
     id 'com.google.gms.google-services'
 }
 
+react {
+    autolinkLibrariesWithApp()
+}
+
 android {
-    namespace 'com.Nutrition' 
-    compileSdkVersion 34
+    namespace 'com.nutrition' 
+    compileSdkVersion 36
 
     defaultConfig {
-        applicationId "com.Nutrition"
+        applicationId "com.nutrition"
         minSdkVersion 24
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode 1
         versionName "1.0"
         
@@ -29,7 +34,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.facebook.react:react-native:+"
+    implementation "com.facebook.react:react-android"
+
+    if (hermesEnabled.toBoolean()) {
+        implementation "com.facebook.react:hermes-android"
+    }
 
     // 1. IMPORT THE FIREBASE BoM (Essential to manage versions)
     implementation platform('com.google.firebase:firebase-bom:34.8.0')
@@ -40,4 +49,3 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-firestore'
 }
-

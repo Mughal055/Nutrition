@@ -8,10 +8,10 @@ plugins {
 
 // android/build.gradle
 ext {
-    buildToolsVersion = "34.0.0" // 36 se 34 kar dein
+    buildToolsVersion = "36.0.0"
     minSdkVersion = 24
-    compileSdkVersion = 34      // 36 se 34 kar dein
-    targetSdkVersion = 34       // 36 se 34 kar dein
+    compileSdkVersion = 36
+    targetSdkVersion = 36
     kotlinVersion = "1.8.10"    // 2.1.20 boht naya hai, 1.8.10 ya 1.9.0 stable hai
 }
 
