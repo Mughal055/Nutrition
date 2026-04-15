@@ -12,7 +12,7 @@ ext {
     minSdkVersion = 24
     compileSdkVersion = 36
     targetSdkVersion = 36
-    kotlinVersion = "1.8.10"    // 2.1.20 boht naya hai, 1.8.10 ya 1.9.0 stable hai
+    kotlinVersion = "1.8.10"   
 }
 
 allprojects {
