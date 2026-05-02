@@ -1,39 +1,57 @@
 import React from 'react';
-// import LinearGradient from 'react-native-linear-gradient';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import Buttoon from './Button';
-import Boarding1 from '../screens/Auth/boarding1/Index';
+import LinearGradient from 'react-native-linear-gradient';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+const { width } = Dimensions.get('window');
 
 const BoardingComponent = ({ image, title, onPress, activeIndex }) => {
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      {/* Image */}
+      {/* Image + Gradient */}
+      <View style={styles.imageContainer}>
+        {/* Image */}
+        <Image source={image} style={styles.image} />
 
-      <Image source={image} style={styles.image} />
-      {/* <LinearGradient
-        colors={['#000000', 'transparent']}
-        style={styles.gradientTop}
-      /> */}
-
-      {/* Text */}
-      <Text style={styles.title}>{title}</Text>
-
-      {/* Dots */}
-      <View style={styles.dots}>
-        {[0, 1, 2].map((item, i) => (
-          <View
-            key={i}
-            style={[styles.dot, activeIndex === i && styles.dotActive]}
+        {/* Gradient Overlay (FIXED) */}
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <LinearGradient
+            colors={['red', 'blue']}
+            style={{ height: 200, width: 200 }}
           />
-        ))}
+        </View>
       </View>
 
-      {/* Button */}
-      <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.btnText}>Continue</Text>
-      </TouchableOpacity>
+      {/* Content */}
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>{title}</Text>
+
+        {/* Dots */}
+        <View style={styles.dots}>
+          {[0, 1, 2].map((_, i) => (
+            <View
+              key={i}
+              style={[styles.dot, activeIndex === i && styles.dotActive]}
+            />
+          ))}
+        </View>
+
+        {/* Button */}
+        <TouchableOpacity style={styles.button} onPress={onPress}>
+          <Text style={styles.btnText}>Continue</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -44,56 +62,77 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 40,
   },
+
+  imageContainer: {
+    width: width,
+    height: 420,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+
   image: {
-    width: 565,
-    height: 369,
+    width: '100%',
+    height: '100%',
     resizeMode: 'cover',
-    backgroundColor: '#686868',
-    marginTop: 100,
   },
+
+  // 🔥 MAIN FIX (overlay)
+  gradientOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 40,
+    backgroundColor: '#000',
+  },
+
   title: {
     color: '#fff',
-    fontSize: 24,
+    fontSize: 26,
     textAlign: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     fontFamily: 'Poppins-SemiBold',
   },
+
   dots: {
     flexDirection: 'row',
-    gap: 6,
-    marginBottom: 20,
+    gap: 8,
+    marginBottom: 10,
   },
+
   dot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: '#fff',
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'rgba(255,255,255,0.3)',
   },
 
   dotActive: {
     width: 25,
     backgroundColor: '#fff',
   },
+
   button: {
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 21,
-    paddingLeft: 58,
-    paddingRight: 58,
-    paddingBottom: 21,
-    // marginVertical: 10,
-    width: 325,
-    height: 66,
+    width: width * 0.85,
+    height: 60,
     backgroundColor: '#691BFB',
   },
+
   btnText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Poppins-Regular',
+    fontWeight: '600',
   },
 });

@@ -3,26 +3,26 @@ import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Progress from 'react-native-progress';
 
-const Item = ({ showProgress = true }) => {
+const Item = ({ showProgress = true, fval, cval, pval }) => {
   const data = [
     {
       icon: 'fast-food',
       color: 'blue',
-      value: '0.12g',
+      value: fval,
       label: 'Fat',
       progress: 0.3,
     },
     {
       icon: 'nutrition',
       color: 'orange',
-      value: '12.63g',
+      value: cval,
       label: 'Carbs',
       progress: 0.6,
     },
     {
       icon: 'fitness',
       color: 'purple',
-      value: '0.12g',
+      value: pval,
       label: 'Protein',
       progress: 0.9,
     },

@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
-const TopHeader = ({ screen }) => {
+const TopHeader = ({ screen, March }) => {
+  const navigation = useNavigation();
   return (
     <View
       style={{

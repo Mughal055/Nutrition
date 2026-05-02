@@ -1,6 +1,6 @@
 import React from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Image, Text, TouchableOpacity } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,14 +16,21 @@ const OnBoarding1 = () => {
     {
       image: img1,
       title: 'Maintaining Good Health Should Be The Primary Focus Of Everyone.',
+      style: { height: '100%', width: '100%' },
     },
     {
       image: img3,
       title: 'Calculate Calories Of Healthy Recipes From All Over The World.',
+      style: { height: '100%', width: 399 },
     },
     {
       image: img2,
       title: 'With Amazing Built Tools You Can Track Your Progress.',
+      style: {
+        height: 325,
+        width: 408,
+        transform: [{ rotate: '180deg' }],
+      },
     },
   ];
 
@@ -31,32 +38,66 @@ const OnBoarding1 = () => {
     <Onboarding
       onDone={() => navigation.replace('Boarding1')}
       onSkip={() => navigation.replace('Boarding1')}
-      // 🔥 tumhara data use ho raha hai
       pages={screens.map(item => ({
         backgroundColor: '#000',
+
+        // 🔥 Image + White Gradient Background
         image: (
-          <Image
-            source={item.image}
-            style={{ width: 300, height: 300, resizeMode: 'contain' }}
-          />
+          <View
+            style={{
+              width: 360,
+              height: 360,
+              position: 'relative',
+              margin: 30,
+            }}
+          >
+            {/* 🔥 White Gradient (BEHIND IMAGE) */}
+            <LinearGradient
+              colors={['transparent', '#a8a3a3', '#faf6f666', '#251e1e']}
+              style={{
+                position: 'absolute',
+                bottom: 25,
+                width: '100%',
+                height: '100%',
+              }}
+            />
+
+            {/* Image */}
+            <Image
+              source={item.image}
+              style={{
+                width: item.style.width,
+                height: item.style.height,
+                resizeMode: 'cover',
+
+                // 🔥 optional shadow for premium look
+                shadowColor: '#000',
+                shadowOpacity: 0.2,
+                shadowRadius: 50,
+                elevation: 5,
+                transform: item.style.transform,
+              }}
+            />
+          </View>
         ),
 
         title: item.title,
         subtitle: '',
       }))}
-      // 🔥 optional: same feel jesa tum chah rahi thi
+      // 🔥 Title Style
       titleStyles={{
         color: '#fff',
         fontSize: 22,
         textAlign: 'center',
         fontFamily: 'Poppins-SemiBold',
+        marginHorizontal: 20,
       }}
-      // 🔥 dots styling (tumhary jesi)
+      // 🔥 Dots
       dotStyle={{
         width: 6,
         height: 6,
         borderRadius: 3,
-        backgroundColor: '#fff',
+        backgroundColor: '#aaa',
       }}
       activeDotStyle={{
         width: 25,
@@ -64,15 +105,19 @@ const OnBoarding1 = () => {
         borderRadius: 3,
         backgroundColor: '#fff',
       }}
-      // 🔥 button text change
-      DoneButtonComponent={({ ...props }) => (
+      // 🔥 Buttons
+      DoneButtonComponent={props => (
         <TouchableOpacity {...props}>
-          <Text style={{ color: '#fff', marginRight: 15 }}>Get Started</Text>
+          <Text style={{ color: '#fff', marginRight: 15, fontSize: 16 }}>
+            Get Started
+          </Text>
         </TouchableOpacity>
       )}
-      NextButtonComponent={({ ...props }) => (
+      NextButtonComponent={props => (
         <TouchableOpacity {...props}>
-          <Text style={{ color: '#fff', marginRight: 15 }}>Continue</Text>
+          <Text style={{ color: '#fff', marginRight: 15, fontSize: 16 }}>
+            Continue
+          </Text>
         </TouchableOpacity>
       )}
     />

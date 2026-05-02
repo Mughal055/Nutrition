@@ -13,8 +13,28 @@ import Item from '../../../components/Item';
 import Menu from '../../../components/Menu';
 import Buttoon from '../../../components/Button';
 import { Button } from 'react-native';
+import Utils from '../../../components/Utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 const Detail2 = () => {
   const navigation = useNavigation();
+  const [FoodList, setFoodList] = useState([]);
+  const Totals = Utils(FoodList);
+
+  //
+  useFocusEffect(
+    useCallback(() => {
+      loadFood();
+    }, []),
+  );
+  //
+  const loadFood = async () => {
+    const storedData = await AsyncStorage.getItem('@my_food');
+    if (storedData) setFoodList(JSON.parse(storedData));
+  };
+  //
+
   return (
     <View style={{ flex: 1, backgroundColor: '#691BFB' }}>
       {/* Back Button */}
@@ -54,7 +74,12 @@ const Detail2 = () => {
       {/* Bottom Card */}
       <View style={styles.card}>
         <View style={{ margin: 20 }}>
-          <Item showProgress={false} />
+          <Item
+            showProgress={false}
+            fval={Totals.fat}
+            cval={Totals.carbs}
+            pval={Totals.protein}
+          />
         </View>
         {/* Detail */}
         <View style={{ margin: 20 }}>

@@ -29,7 +29,7 @@ const WelcomeScreen = () => {
             onPress={() => navigation.navigate('Signup')}
           />
         </View>
-        <View style={{ flex: 1, marginTop: 60 }}>
+        <View style={{ flex: 1, marginTop: 35 }}>
           <Buttoon
             title="Login"
             backgroundColor="#fff"

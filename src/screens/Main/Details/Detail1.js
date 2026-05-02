@@ -7,14 +7,16 @@ import {
   TextInput,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import Item from '../../../components/Item';
 import Menu from '../../../components/Menu';
 import Buttoon from '../../../components/Button';
 import Detail2 from './Detail2';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Utils from '../../../components/Utils';
 
 const Detail1 = () => {
   const navigation = useNavigation();
@@ -26,6 +28,11 @@ const Detail1 = () => {
   const [Gram, setGram] = useState('');
   const [Num, setNum] = useState('');
   const [FoodList, setFoodList] = useState([]);
+  const Totals = Utils(FoodList);
+
+  useEffect(() => {
+    loadFood();
+  }, []);
 
   //functions
   //its control done button
@@ -39,19 +46,28 @@ const Detail1 = () => {
       gram: Gram,
       number: Num,
     };
-    //for temporary save
-    await AsyncStorage.setItem('@my_food', JSON.stringify(FoodList));
 
-    const storedData = await AsyncStorage.getItem('@my_food');
-    if (storedData) setFoodList(JSON.parse(storedData));
-
-    setFoodList([...FoodList, newFood]); // ya pahly wali or new food listkocombine kr raha
+    const updateList = [...FoodList, newFood]; // ya pahly wali or new food listkocombine kr raha
+    setFoodList(updateList);
+    await AsyncStorage.setItem('@my_food', JSON.stringify(updateList));
     setKcal('');
     setGram('');
     setNum('');
     setTitle('');
-
+    //for food add
     setVisible(false);
+  };
+
+  //for temporary save
+  const loadFood = async () => {
+    const storedData = await AsyncStorage.getItem('@my_food');
+    if (storedData) setFoodList(JSON.parse(storedData));
+  };
+  // for delete
+  const handleDelete = async id => {
+    const updated = FoodList.filter(item => item.id !== id);
+    setFoodList(updated);
+    await AsyncStorage.setItem('@my_food', JSON.stringify(updated));
   };
   return (
     <View style={{ flex: 1, backgroundColor: '#691BFB' }}>
@@ -73,7 +89,12 @@ const Detail1 = () => {
         }}
       >
         <View>
-          <Text style={styles.heading}>Breakfast</Text>
+          <Text
+            style={styles.heading}
+            onPress={() => navigation.navigate(Detail2)}
+          >
+            Breakfast
+          </Text>
           <Text style={styles.subHeading}>26 March, 2025</Text>
         </View>
 
@@ -86,9 +107,15 @@ const Detail1 = () => {
       </View>
 
       {/* Bottom Card */}
+
       <View style={styles.card}>
         <View style={{ margin: 20 }}>
-          <Item showProgress={false} />
+          <Item
+            showProgress={false}
+            fval={Totals.fat}
+            cval={Totals.carbs}
+            pval={Totals.protein}
+          />
         </View>
 
         {/* Menu List */}
@@ -100,13 +127,9 @@ const Detail1 = () => {
               kcal={item.kcal}
               gram={item.gram}
               number={item.number}
+              onDelete={() => handleDelete(item.id)}
             />
           ))}
-          {/* <Menu title="Coffee with milk" kcal="219" gram="24" number="1" /> */}
-          {/*<Menu title="Sandwich" kcal="300" gram="24" number="1" /> */}
-          {/* <Menu title="Raspberry" kcal="224" gram="24" number="1" />
-          <Menu title="Cucumber" kcal="126" gram="24" number="1" />
-          <Menu title="Tomato" kcal="321" gram="24" number="1" /> */}
         </View>
 
         {/* Add Food Button */}

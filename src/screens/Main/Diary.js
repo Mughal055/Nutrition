@@ -1,13 +1,30 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Item from '../../components/Item';
 import Recipie from '../../components/Recipie';
 import { useNavigation } from '@react-navigation/native';
+import Utils from '../../components/Utils';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Diary = () => {
   const navigation = useNavigation();
+
+  const [FoodList, setFoodList] = useState([]);
+  const Totals = Utils(FoodList);
+  useFocusEffect(
+    useCallback(() => {
+      loadFood();
+    }, []),
+  );
+  //for temporary save
+  const loadFood = async () => {
+    const storedData = await AsyncStorage.getItem('@my_food');
+    if (storedData) setFoodList(JSON.parse(storedData));
+  };
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: '#F2F5FC' }}
@@ -19,6 +36,7 @@ const Diary = () => {
         <Image
           source={require('../../assets/Img/background.png')}
           resizeMode="center"
+          style={{ width: 30, height: 30 }}
         />
 
         <Text style={b.headerTitle}>My Diary</Text>
@@ -26,6 +44,7 @@ const Diary = () => {
           <Image
             source={require('../../assets/Img/home2.png')}
             resizeMode="center"
+            style={{ width: 30, height: 30, borderRadius: 50 }}
           />
         </TouchableOpacity>
       </View>
@@ -109,7 +128,12 @@ const Diary = () => {
       </View>
       {/* Item */}
       <View style={{ margin: 20 }}>
-        <Item />
+        <Item
+          showProgress={true}
+          fval={Totals.fat}
+          cval={Totals.carbs}
+          pval={Totals.protein}
+        />
       </View>
       {/* Meals Today */}
       <View style={{ marginHorizontal: 20 }}>
@@ -137,23 +161,28 @@ const Diary = () => {
           src={require('../../assets/Img/Breakfast.png')}
           title="Breakfast"
           kcal="540 kcal 100 g"
-          sign="—"
+          sign="remove"
           onpress={() => navigation.navigate('Detail1')}
         />
-        <Item showProgress={false} />
+        <Item
+          showProgress={false}
+          fval={Totals.fat}
+          cval={Totals.carbs}
+          pval={Totals.protein}
+        />
         {/* 2nd recepie */}
         <Recipie
           src={require('../../assets/Img/Lunch.png')}
           title="Lunch"
           kcal="48 kcal 100 g"
-          sign="+"
+          sign="add"
         />
         {/* 3rd receipe */}
         <Recipie
           src={require('../../assets/Img/Dinner.png')}
           title="Dinner"
           kcal="48 kcal 100 g"
-          sign="+"
+          sign="add"
         />
       </View>
     </ScrollView>
@@ -168,13 +197,14 @@ const b = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    margin: 10,
+    alignItems: 'center',
+    margin: 20,
   },
   headerTitle: {
     fontSize: 19,
     fontFamily: 'Poppins-Medium',
     textAlign: 'center',
+    justifyContent: 'flex-end',
   },
 
   date: {

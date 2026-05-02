@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:83394800525:android:f560a3921ad6e40f176bc4",
         "android_client_info": {
-          "package_name": "com.nutrition"
+          "package_name": "com.Nutrition"
         }
       },
       "oauth_client": [
@@ -40,6 +40,35 @@
         "mobilesdk_app_id": "1:83394800525:android:a640dce9409e6f36176bc4",
         "android_client_info": {
           "package_name": "com.ToDo_App"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83394800525-bm01hnsn2ppectb73ncmdhsriek8oc4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx_5NnqGyXZMww5awl8w2aSr22aWtHGGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83394800525-bm01hnsn2ppectb73ncmdhsriek8oc4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83394800525:android:a0d37708fbab9726176bc4",
+        "android_client_info": {
+          "package_name": "com.nutrition"
         }
       },
       "oauth_client": [

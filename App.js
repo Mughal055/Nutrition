@@ -18,16 +18,17 @@ import OnBoarding1 from './src/screens/Auth/OnBoarding1';
 // import OpenProfile from './src/screens/Main/EditProfile/OpenProfile';
 import auth from '@react-native-firebase/auth';
 import BottomTab from './src/navigation/BottomTab';
+
 //
 import Detail1 from './src/screens/Main/Details/Detail1';
 import Detail2 from './src/screens/Main/Details/Detail2';
-import Detail3 from './src/screens/Main/Details/Detail3';
+import SetGoal from './src/screens/Main/Details/Detail3';
 //
 import Account from './src/screens/Main/Account';
 import PrivacyPolicy from './src/screens/Main/PrivacyPolicy';
 import EditProfile from './src/screens/Main/EditProfile';
 import HelpCenter from './src/screens/Main/HelpCenter';
-import Diary from './src/screens/Main/Diary';
+import TermsConditions from './src/screens/Main/TermsConditions';
 
 const Stack = createNativeStackNavigator();
 
@@ -71,12 +72,12 @@ const App = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Detail1" component={Detail1} />
         <Stack.Screen name="Detail2" component={Detail2} />
-        <Stack.Screen name="Detail3" component={Detail3} />
         <Stack.Screen name="Account" component={Account} />
         <Stack.Screen name="HelpCenter" component={HelpCenter} />
         <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
-        {/* <Stack.Screen name="Diary" component={Diary} /> */}
+        <Stack.Screen name="TermsConditions" component={TermsConditions} />
+        <Stack.Screen name="SetGoal" component={SetGoal} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -4,6 +4,8 @@ import Profile from '../../components/Profile';
 import Buttoon from '../../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import EditProfile from './EditProfile';
+import NewPassword from '../Auth/NewPassword/Index';
+import SetGoal from './Details/Detail3';
 
 const Account = () => {
   const navigation = useNavigation();
@@ -47,15 +49,35 @@ const Account = () => {
           title={'Edit Profile'}
           onpress={() => navigation.navigate('EditProfile')}
         />
-        <Profile icon={'shield-outline'} title={'Change password'} />
+        <Profile
+          icon={'shield-outline'}
+          title={'Change password'}
+          onpress={() => navigation.navigate('NewPassword')}
+        />
       </View>
       {/*  */}
       <View style={{ marginHorizontal: 15, paddingVertical: 5 }}>
         <Text style={styles.outline}>About</Text>
-        <Profile icon={'flag-outline'} title={'Set Goal'} />
-        <Profile icon={'help-circle-outline'} title={'Help Center'} />
-        <Profile icon={'lock-closed-outline'} title={'Privacy & Policy'} />
-        <Profile icon={'construct-outline'} title={'Terms & Condition'} />
+        <Profile
+          icon={'flag-outline'}
+          title={'Set Goal'}
+          onpress={() => navigation.navigate('SetGoal')}
+        />
+        <Profile
+          icon={'help-circle-outline'}
+          title={'Help Center'}
+          onpress={() => navigation.navigate('HelpCenter')}
+        />
+        <Profile
+          icon={'lock-closed-outline'}
+          title={'Privacy & Policy'}
+          onpress={() => navigation.navigate('PrivacyPolicy')}
+        />
+        <Profile
+          icon={'construct-outline'}
+          title={'Terms & Condition'}
+          onpress={() => navigation.navigate('TermsConditions')}
+        />
       </View>
       {/*  */}
       <View style={{ marginHorizontal: 15, paddingVertical: 5 }}>

@@ -1,5 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'; // TouchableOpacity add kiya
 import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Recipie = ({ src, kcal, title, sign, onpress }) => {
   return (
@@ -11,9 +12,9 @@ const Recipie = ({ src, kcal, title, sign, onpress }) => {
         marginVertical: 10,
         backgroundColor: '#fff',
         flexDirection: 'row',
-        borderRadius: 8,
+        borderRadius: 13,
         elevation: 3,
-        flex: 1,
+        // flex: 1,
       }}
     >
       <Image source={src} style={{ height: 61, width: 61, borderRadius: 13 }} />
@@ -52,14 +53,21 @@ const Recipie = ({ src, kcal, title, sign, onpress }) => {
             borderColor: '#000',
             borderWidth: 2,
             alignSelf: 'center',
-            width: 21,
-            height: 21,
+            width: 23,
+            height: 23,
             borderRadius: 8,
             justifyContent: 'center',
           }}
         >
-          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>
-            {sign}
+          <Text
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            <Ionicons
+              name={sign}
+              style={{ fontWeight: 'bold', fontSize: 17 }}
+            />
           </Text>
         </View>
       </View>

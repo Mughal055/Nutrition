@@ -1,10 +1,19 @@
-import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import React, { useState } from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TopHeader from '../../components/TopHeader';
 import Buttoon from '../../components/Button';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const EditProfile = () => {
+  const [Visible, setVisible] = useState(true);
   return (
     <View>
       {/*  */}
@@ -42,7 +51,30 @@ const EditProfile = () => {
       <TextInput style={styles.input} placeholder="Username" />
       <TextInput style={styles.input} placeholder="Email" />
       <TextInput style={styles.input} placeholder="Phone number" />
-      <TextInput style={styles.input} placeholder="Password" />
+
+      <View style={{ position: 'relative' }}>
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry={Visible}
+        />
+
+        <TouchableOpacity
+          onPress={() => setVisible(!Visible)}
+          style={{
+            position: 'absolute',
+            right: 15,
+            top: '50%',
+            transform: [{ translateY: -13 }], // perfect vertical center
+          }}
+        >
+          <Ionicons
+            name={Visible ? 'eye-outline' : 'eye-off-outline'}
+            size={26}
+            color="#555"
+          />
+        </TouchableOpacity>
+      </View>
       {/* button */}
       <View style={{ margin: 50 }}>
         <Buttoon title="Update" />
