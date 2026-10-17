@@ -1,6 +1,7 @@
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import TopHeader from '../../components/TopHeader';
+import ScreenWrapper from '../../components/ScreenWrapper';
 
 const TermsConditions = () => {
   const [Fetch, setfetch] = useState([]);
@@ -15,23 +16,30 @@ const TermsConditions = () => {
     setfetch(data);
   };
   return (
-    <View>
-      <TopHeader screen={'Terms & Conditions'} />
-      {Fetch.map(It => (
-        <Text
-          key={It.id}
-          style={{
-            margin: 20,
-            fontFamily: 'Poppins-Regular',
-            fontSize: 14,
-            color: '#666D80',
-          }}
-        >
-          Title: {It.title}
-          {It.body}
-        </Text>
-      ))}
-    </View>
+    <ScreenWrapper>
+      <ScrollView
+        style={{ backgroundColor: '#F2F5FC' }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View>
+          <TopHeader screen={'Terms & Conditions'} />
+          {Fetch.map(It => (
+            <Text
+              key={It.id}
+              style={{
+                margin: 20,
+                fontFamily: 'Poppins-Regular',
+                fontSize: 14,
+                color: '#666D80',
+              }}
+            >
+              Title: {It.title}
+              {It.body}
+            </Text>
+          ))}
+        </View>
+      </ScrollView>
+    </ScreenWrapper>
   );
 };
 

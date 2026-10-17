@@ -2,10 +2,11 @@ import { View, Text } from 'react-native';
 import React from 'react';
 import TopHeader from '../../components/TopHeader';
 import Notify from '../../components/Notify';
+import ScreenWrapper from '../../components/ScreenWrapper';
 
 const Notification = () => {
   return (
-    <View style={{ backgroundColor: '#FFFFFF' }}>
+    <ScreenWrapper style={{ backgroundColor: '#FFFFFF' }}>
       {/* Header */}
       <TopHeader screen={'Notification'} />
       <Notify
@@ -35,7 +36,7 @@ const Notification = () => {
         text="avocado is good in vitamins and                                                                                minerals for health"
         mints="2 hours ago"
       />
-    </View>
+    </ScreenWrapper>
   );
 };
 

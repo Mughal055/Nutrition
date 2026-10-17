@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import CustomInput from '../../../components/Input';
 import React, { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -23,21 +23,32 @@ const Login = () => {
           Email: UserLogin.user.email,
           uid: UserLogin.user.uid,
         });
+        Alert.alert('Login Successful 🎉', 'Welcome back!');
 
         setTimeout(() => {
           navigation.replace('BottomTab');
         }, 1500);
       } else {
-        alert('Please Enter Your Data...');
+        Alert.alert('Missing Data', 'Please enter email and password');
       }
     } catch (error) {
+      if (error.code === 'auth/invalid-email') {
+        Alert.alert('Invalid Email', 'Please enter a valid email');
+      } else if (error.code === 'auth/invalid-credential') {
+        Alert.alert('Login Failed ❌', 'Incorrect email or password');
+      } else if (error.code === 'auth/user-not-found') {
+        Alert.alert('User Not Found 😒', 'No account found with this email');
+      } else {
+        Alert.alert('Error', error.message);
+      }
+
       console.log(error);
     }
   };
 
   return (
     <View style={{ backgroundColor: '#fff' }}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
         <Ionicons
           name="arrow-back-outline"
           onPress={() => navigation.goBack()}
@@ -82,7 +93,7 @@ const Login = () => {
           </Text>
         </View>
 
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginHorizontal: 15, alignItems: 'center' }}>
           <Buttoon onPress={HandleLogin} title="Log in" />
         </View>
 
@@ -93,7 +104,7 @@ const Login = () => {
           </View>
         )}
 
-        <View style={{ marginTop: 220 }}>
+        <View style={{ marginTop: 275 }}>
           <Footer
             onPress={() => navigation.navigate('Signup')}
             linkText="Sign up"

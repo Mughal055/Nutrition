@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 const ItHeader = ({ title, description }) => {
   return (
-    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
+
       <Text style={styles.paragraph}>{description}</Text>
     </View>
   );
@@ -14,31 +17,36 @@ export default ItHeader;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 16,
-    paddingHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: width * 0.05,
   },
+
   title: {
-    marginTop: 20,
-    paddingBottom: 5,
-    fontSize: 30,
+    marginTop: width * 0.05,
+    paddingBottom: width * 0.018,
+
+    fontSize: width * 0.07,
+    lineHeight: width * 0.085,
+
     textAlign: 'center',
     fontFamily: 'Poppins-Medium',
     color: '#000000D9',
     fontWeight: '500',
-    justifyContent: 'center',
-    lineHeight: 34,
   },
+
   paragraph: {
     fontFamily: 'Poppins-Regular',
+
     textAlign: 'center',
-    justifyContent: 'center',
-    fontSize: 17,
+
+    fontSize: width * 0.047,
+    lineHeight: width * 0.055,
+
     fontWeight: '400',
     color: '#00000073',
-    marginVertical: 10,
-    paddingVertical: 10,
-    lineHeight: 20,
-    // marginBottom:25,
-    // flex:1,
+
+    marginVertical: width * 0.025,
+    paddingVertical: width * 0.02,
   },
 });

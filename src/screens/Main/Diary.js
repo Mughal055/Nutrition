@@ -1,4 +1,11 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,8 +17,11 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const { width } = Dimensions.get('screen');
+
 const Diary = () => {
   const navigation = useNavigation();
+  const { width } = Dimensions.get('screen');
 
   const [FoodList, setFoodList] = useState([]);
   const Totals = Utils(FoodList);
@@ -66,7 +76,7 @@ const Diary = () => {
         <View style={{ flex: 1 }}>
           <Text style={b.cardText}>10 Top-Rated Salmon Recipes Inspired</Text>
 
-          <Text style={b.cardSub}>by the Mediterranean..</Text>
+          <Text style={b.cardSub}>by the Medin..</Text>
 
           <TouchableOpacity style={b.btn}>
             <Text style={b.btnText}>Read more</Text>
@@ -203,8 +213,6 @@ const b = StyleSheet.create({
   headerTitle: {
     fontSize: 19,
     fontFamily: 'Poppins-Medium',
-    textAlign: 'center',
-    justifyContent: 'flex-end',
   },
 
   date: {
@@ -254,7 +262,7 @@ const b = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 13,
     marginTop: 10,
-    width: 110,
+    width: width - 255,
   },
 
   btnText: {

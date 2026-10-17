@@ -1,12 +1,8 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {a} from '../style/style'
-
-
 
 const Input = ({
-  
   icon,
   placeholder,
   value,
@@ -15,10 +11,9 @@ const Input = ({
   keyboardType = 'default',
   style,
 }) => {
-
   return (
-    <View style={styles.container}>
-      <Icon name={icon} size={25} color="#666" style={a.icon} />
+    <View style={[styles.container, style]}>
+      {icon && <Icon name={icon} size={22} color="#666" style={styles.icon} />}
 
       <TextInput
         placeholder={placeholder}
@@ -26,7 +21,7 @@ const Input = ({
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
-        style={a.Iinput}
+        style={styles.input}
         placeholderTextColor="black"
       />
     </View>
@@ -39,27 +34,28 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: '#ddd',
-    // borderRadius: 10,
-     //paddingHorizontal: 12,
-    // marginVertical: 8,
-    // backgroundColor: '#fff',
+
+    backgroundColor: '#F7F8F9',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#d6d8dd',
+
+    marginHorizontal: 15,
+    marginVertical: 8,
+
+    paddingHorizontal: 15,
   },
+
   icon: {
-    marginRight: 8,
+    marginRight: 10,
   },
-//   input: {
-//     paddingLeft:50,
-//  marginTop: 10,
-//   marginLeft:10,
-//   marginBottom:20,
-//   // paddingHorizontal:10,
-//   borderColor:'#837d7dff',
-//   padding:10,
-//   // width: width - 20,borderWidth: 1,
- 
-//     height: 45,
-//     color: '#000',
-//   },
+
+  input: {
+    flex: 1,
+    paddingVertical: 10,
+
+    fontSize: 16,
+    fontFamily: 'Poppins-Medium',
+    color: '#000',
+  },
 });

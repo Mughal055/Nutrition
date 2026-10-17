@@ -11,11 +11,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TopHeader from '../../components/TopHeader';
 import Buttoon from '../../components/Button';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ScreenWrapper from '../../components/ScreenWrapper';
 
 const EditProfile = () => {
   const [Visible, setVisible] = useState(true);
   return (
-    <View>
+    <ScreenWrapper>
       {/*  */}
       <TopHeader screen={'Edit Profile'} />
       {/*  */}
@@ -48,9 +49,11 @@ const EditProfile = () => {
         </View>
       </View>
       {/* Inputs */}
-      <TextInput style={styles.input} placeholder="Username" />
-      <TextInput style={styles.input} placeholder="Email" />
-      <TextInput style={styles.input} placeholder="Phone number" />
+      <View style={{ marginTop: 20 }}>
+        <TextInput style={styles.input} placeholder="Username" />
+        <TextInput style={styles.input} placeholder="Email" />
+        <TextInput style={styles.input} placeholder="Phone number" />
+      </View>
 
       <View style={{ position: 'relative' }}>
         <TextInput
@@ -63,7 +66,7 @@ const EditProfile = () => {
           onPress={() => setVisible(!Visible)}
           style={{
             position: 'absolute',
-            right: 15,
+            right: 25,
             top: '50%',
             transform: [{ translateY: -13 }], // perfect vertical center
           }}
@@ -76,10 +79,10 @@ const EditProfile = () => {
         </TouchableOpacity>
       </View>
       {/* button */}
-      <View style={{ margin: 50 }}>
+      <View style={{ alignItems: 'center' }}>
         <Buttoon title="Update" />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 
@@ -90,11 +93,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#d6d8dd',
-    paddingVertical: 16,
+    paddingVertical: 10,
     paddingHorizontal: 15,
+    marginHorizontal: 15,
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-    color: '#8A8A8A',
+    color: '#000',
     margin: 8,
   },
 });

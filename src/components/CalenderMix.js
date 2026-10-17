@@ -44,25 +44,19 @@ const CalenderMix = () => {
         />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={c.grey}>Coffe with milk 100 g</Text>
-          <Text style={{ color: '#E0E6F3' }}>
-            .....................................
-          </Text>
+          <Text style={{ color: '#E0E6F3' }}>...........................</Text>
           <Text style={c.prple}>56 Kcal</Text>
         </View>
         {/*  */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={c.grey}>Sandwich 100 g</Text>
-          <Text style={{ color: '#E0E6F3' }}>
-            ......................................
-          </Text>
+          <Text style={{ color: '#E0E6F3' }}>...........................</Text>
           <Text style={c.prple}>250 Kcal</Text>
         </View>
         {/*  */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={c.grey}>Walnuts 20 g</Text>
-          <Text style={{ color: '#E0E6F3' }}>
-            ........................................
-          </Text>
+          <Text style={{ color: '#E0E6F3' }}>...........................</Text>
           <Text style={c.prple}>100 Kcal</Text>
         </View>
         {/*  */}

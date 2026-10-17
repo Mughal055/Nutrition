@@ -1,4 +1,4 @@
-import { View, Text, Image, Button } from 'react-native';
+import { View, Text, Image, Button, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { a } from '../../../style/style';
@@ -23,13 +23,12 @@ const WelcomeScreen = () => {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={a.WelH}>Unlock the app for Calorie Tracking</Text>
         </View>
-        <View style={{ flex: 1, marginTop: 35 }}>
+        <View style={{ marginTop: 15, paddingVertical: 5 }}>
           <Buttoon
             title="Signup"
             onPress={() => navigation.navigate('Signup')}
           />
-        </View>
-        <View style={{ flex: 1, marginTop: 35 }}>
+
           <Buttoon
             title="Login"
             backgroundColor="#fff"
@@ -37,7 +36,7 @@ const WelcomeScreen = () => {
             onPress={() => navigation.navigate('Login')}
           />
         </View>
-        <View style={{ flex: 1, marginTop: 30 }}>
+        <View style={{ flex: 1 }}>
           <Text onPress={() => navigation.navigate('BottomTab')} style={a.tex}>
             Continue as Bottom Tab
           </Text>

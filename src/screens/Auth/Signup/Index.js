@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Alert, alert } from 'react-native';
 import React, { useState } from 'react';
 import CustomInput from '../../../components/Input';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -21,12 +21,30 @@ const Signup = () => {
           Email,
           Password,
         );
-        console.log(createUser);
+
+        Alert.alert('Success 🎉', 'Account created successfully 😊');
+        setTimeout(() => {
+          navigation.replace('BottomTab');
+        }, 1500);
       } else {
-        alert('Please Enter Data');
+        Alert.alert('Please Enter Your Data...');
       }
     } catch (error) {
-      console.log(error);
+      if (error.code === 'auth/email-already-in-use') {
+        Alert.alert(
+          'Account Already Exists',
+          'An account with this email already exists.',
+        );
+      } else if (error.code === 'auth/invalid-email') {
+        Alert.alert('Invalid Email', 'Please enter a valid email');
+      } else if (error.code === 'auth/weak-password') {
+        Alert.alert(
+          'Weak Password',
+          'Password should be at least 6 characters',
+        );
+      } else {
+        Alert.alert('Error', error.message);
+      }
     }
   };
 
@@ -84,8 +102,8 @@ const Signup = () => {
           <Ionicons
             name="square-outline"
             color="#837d7dff"
-            size={28}
-            style={{ marginRight: 10 }}
+            size={38}
+            style={{ marginRight: 5, marginLeft: 5 }}
           />
           <Text
             style={{
@@ -99,12 +117,12 @@ const Signup = () => {
         </View>
 
         {/* Button */}
-        <View style={{ marginTop: 5, paddingHorizontal: 10 }}>
+        <View style={{ marginTop: 15, alignItems: 'center' }}>
           <Buttoon title="Sign up" onPress={HandleSignup} />
         </View>
 
         {/* Footer */}
-        <View style={{ marginTop: 130 }}>
+        <View style={{ marginTop: 150 }}>
           <Footer
             onPress={() => navigation.navigate('Login')}
             linkText="Login"

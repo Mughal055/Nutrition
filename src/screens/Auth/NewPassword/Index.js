@@ -9,7 +9,6 @@ import Buttoon from '../../../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import ItHeader from '../../../components/ItHeader';
 import Footer from '../../../components/Footer';
-import Home from '../../Main/Home/Home';
 
 const NewPassword = () => {
   const navigation = useNavigation();
@@ -36,12 +35,15 @@ const NewPassword = () => {
             placeholder="Confirm your password"
             icon="lock-closed-outline"
           />
-          <View style={{ flex: 1, marginVertical: 20 }}>
+          <View style={{ alignItems: 'center', paddingVertical: 5 }}>
             <Buttoon title="Change password" />
           </View>
         </View>
       </View>
-      <Footer onPress={() => navigation.navigate('Home')} linkText="Home" />
+      <Footer
+        onPress={() => navigation.navigate('Boarding1')}
+        linkText="Home"
+      />
     </View>
   );
 };

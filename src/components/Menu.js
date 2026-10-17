@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Menu = ({ title, kcal, gram, number, onDelete }) => {
+const Menu = ({ title, kcal, gram, number, onDelete, onEdit }) => {
   return (
     <View style={styles.card}>
       <View style={styles.left}>
@@ -26,7 +26,7 @@ const Menu = ({ title, kcal, gram, number, onDelete }) => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.iconBox}>
+      <TouchableOpacity style={styles.iconBox} onPress={onEdit}>
         <Ionicons name="documents-outline" size={18} />
       </TouchableOpacity>
 

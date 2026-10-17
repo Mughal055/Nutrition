@@ -5,11 +5,10 @@ import {
   TouchableOpacity,
   Modal,
   TextInput,
+  ScrollView,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import Item from '../../../components/Item';
 import Menu from '../../../components/Menu';
@@ -17,211 +16,273 @@ import Buttoon from '../../../components/Button';
 import Detail2 from './Detail2';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Utils from '../../../components/Utils';
+import ScreenWrapper from '../../../components/ScreenWrapper';
 
 const Detail1 = () => {
   const navigation = useNavigation();
 
   const [visible, setVisible] = useState(false);
-  const [count, setCount] = useState(1);
+
+  // INPUT STATES
   const [Title, setTitle] = useState('');
   const [Kcal, setKcal] = useState('');
   const [Gram, setGram] = useState('');
   const [Num, setNum] = useState('');
+
+  // FOOD LIST
   const [FoodList, setFoodList] = useState([]);
+
+  // EDIT STATES
+  const [isEdit, setIsEdit] = useState(false);
+  const [editId, setEditId] = useState(null);
+
   const Totals = Utils(FoodList);
 
   useEffect(() => {
     loadFood();
   }, []);
 
-  //functions
-  //its control done button
+  // LOAD DATA
+  const loadFood = async () => {
+    const storedData = await AsyncStorage.getItem('@my_food');
+
+    if (storedData) {
+      setFoodList(JSON.parse(storedData));
+    }
+  };
+
+  // ADD + UPDATE FOOD
   const handleAddFood = async () => {
     if (!Title) return;
 
-    const newFood = {
-      id: Date.now(), // we use it for unique numbers , lkn firebase apni id generate kry ga..
-      title: Title,
-      kcal: Kcal,
-      gram: Gram,
-      number: Num,
-    };
+    let updatedList = [];
 
-    const updateList = [...FoodList, newFood]; // ya pahly wali or new food listkocombine kr raha
-    setFoodList(updateList);
-    await AsyncStorage.setItem('@my_food', JSON.stringify(updateList));
+    if (isEdit) {
+      // UPDATE ITEM
+      updatedList = FoodList.map(item =>
+        item.id === editId
+          ? {
+              ...item,
+              title: Title,
+              kcal: Kcal,
+              gram: Gram,
+              number: Num,
+            }
+          : item,
+      );
+    } else {
+      // ADD ITEM
+      const newFood = {
+        id: Date.now(),
+        title: Title,
+        kcal: Kcal,
+        gram: Gram,
+        number: Num,
+      };
+
+      updatedList = [...FoodList, newFood];
+    }
+
+    setFoodList(updatedList);
+
+    await AsyncStorage.setItem('@my_food', JSON.stringify(updatedList));
+
+    // RESET
+    setTitle('');
     setKcal('');
     setGram('');
     setNum('');
-    setTitle('');
-    //for food add
+
     setVisible(false);
+    setIsEdit(false);
+    setEditId(null);
   };
 
-  //for temporary save
-  const loadFood = async () => {
-    const storedData = await AsyncStorage.getItem('@my_food');
-    if (storedData) setFoodList(JSON.parse(storedData));
-  };
-  // for delete
+  // DELETE
   const handleDelete = async id => {
     const updated = FoodList.filter(item => item.id !== id);
+
     setFoodList(updated);
+
     await AsyncStorage.setItem('@my_food', JSON.stringify(updated));
   };
+
   return (
-    <View style={{ flex: 1, backgroundColor: '#691BFB' }}>
-      {/* Back Button */}
-      <Icon
-        name="arrow-back-outline"
-        onPress={() => navigation.goBack()}
-        size={24}
-        color="#fff"
-        style={{ marginTop: 22, marginLeft: 22 }}
-      />
-
-      {/* Header */}
-      <View
-        style={{
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          margin: 20,
-        }}
-      >
-        <View>
-          <Text
-            style={styles.heading}
-            onPress={() => navigation.navigate(Detail2)}
-          >
-            Breakfast
-          </Text>
-          <Text style={styles.subHeading}>26 March, 2025</Text>
-        </View>
-
-        <View>
-          <Text style={styles.heading}>540 Kcal</Text>
-          <Text style={[styles.subHeading, { alignSelf: 'flex-end' }]}>
-            100g
-          </Text>
-        </View>
-      </View>
-
-      {/* Bottom Card */}
-
-      <View style={styles.card}>
-        <View style={{ margin: 20 }}>
-          <Item
-            showProgress={false}
-            fval={Totals.fat}
-            cval={Totals.carbs}
-            pval={Totals.protein}
-          />
-        </View>
-
-        {/* Menu List */}
-        <View style={{ margin: 20 }}>
-          {FoodList.map(item => (
-            <Menu
-              key={item.id}
-              title={item.title}
-              kcal={item.kcal}
-              gram={item.gram}
-              number={item.number}
-              onDelete={() => handleDelete(item.id)}
-            />
-          ))}
-        </View>
-
-        {/* Add Food Button */}
-        <Buttoon
-          title="Add Food"
-          icon="add-circle-outline"
-          onPress={() => setVisible(true)}
+    <ScrollView
+      contentContainerStyle={{ paddingBottom: '100%', backgroundColor: '#fff' }}
+    >
+      <ScreenWrapper style={{ flex: 1, backgroundColor: '#691BFB' }}>
+        {/* BACK BUTTON */}
+        <Icon
+          name="arrow-back-outline"
+          onPress={() => navigation.goBack()}
+          size={24}
+          color="#fff"
+          style={{ marginTop: 22, marginLeft: 22 }}
         />
-      </View>
 
-      {/* Modal */}
-      <Modal visible={visible} transparent animationType="fade">
-        <View style={styles.overlay}>
-          <View style={styles.box}>
-            <TouchableOpacity
-              style={styles.close}
-              onPress={() => setVisible(false)}
+        {/* HEADER */}
+        <View
+          style={{
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            margin: 20,
+          }}
+        >
+          <View>
+            <Text
+              style={styles.heading}
+              onPress={() => navigation.navigate(Detail2)}
             >
-              <Icon name="close" size={25} color="#000" />
-            </TouchableOpacity>
+              Breakfast
+            </Text>
 
-            <Text style={styles.title}>Add Food</Text>
+            <Text style={styles.subHeading}>26 March, 2025</Text>
+          </View>
 
-            <TextInput
-              placeholder="Name Of Food"
-              style={styles.input}
-              value={Title}
-              onChangeText={value => setTitle(value)}
+          <View>
+            <Text style={styles.heading}>540 Kcal</Text>
+
+            <Text style={[styles.subHeading, { alignSelf: 'flex-end' }]}>
+              100g
+            </Text>
+          </View>
+        </View>
+
+        {/* CARD */}
+        <View style={styles.card}>
+          {/* TOTALS */}
+          <View style={{ margin: 20 }}>
+            <Item
+              showProgress={false}
+              fval={Totals.fat}
+              cval={Totals.carbs}
+              pval={Totals.protein}
             />
+          </View>
 
-            {/* <View style={styles.row}> */}
-            <View style={{}}>
-              <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+          {/* FOOD LIST */}
+          <View style={{ margin: 20 }}>
+            {FoodList.map(item => (
+              <Menu
+                key={item.id}
+                title={item.title}
+                kcal={item.kcal}
+                gram={item.gram}
+                number={item.number}
+                onDelete={() => handleDelete(item.id)}
+                onEdit={() => {
+                  setTitle(item.title);
+                  setKcal(item.kcal);
+                  setGram(item.gram);
+                  setNum(item.number);
+
+                  setEditId(item.id);
+                  setIsEdit(true);
+
+                  setVisible(true);
+                }}
+              />
+            ))}
+          </View>
+
+          {/* ADD FOOD BUTTON */}
+          <View style={{ marginHorizontal: 20 }}>
+            <Buttoon
+              title="Add Food"
+              icon="add-circle-outline"
+              onPress={() => {
+                setVisible(true);
+
+                setIsEdit(false);
+                setEditId(null);
+
+                setTitle('');
+                setKcal('');
+                setGram('');
+                setNum('');
+              }}
+            />
+          </View>
+        </View>
+
+        {/* MODAL */}
+        <Modal visible={visible} transparent animationType="fade">
+          <View style={styles.overlay}>
+            <View style={styles.box}>
+              {/* CLOSE */}
+              <TouchableOpacity
+                style={styles.close}
+                onPress={() => setVisible(false)}
+              >
+                <Icon name="close" size={25} color="#000" />
+              </TouchableOpacity>
+
+              {/* TITLE */}
+              <Text style={styles.title}>
+                {isEdit ? 'Edit Food' : 'Add Food'}
+              </Text>
+
+              {/* FOOD NAME */}
+              <TextInput
+                placeholder="Name Of Food"
+                style={styles.input}
+                value={Title}
+                onChangeText={setTitle}
+              />
+
+              {/* FAT */}
+              <View style={styles.rowInput}>
                 <Text style={styles.Inn}>Fat:</Text>
+
                 <TextInput
                   placeholder="0"
                   style={styles.dropdown}
                   value={Kcal}
-                  onChangeText={value => setKcal(value)}
+                  onChangeText={setKcal}
+                  keyboardType="numeric"
                 />
-                <Text>g</Text>
               </View>
-              {/*  */}
-              <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+
+              {/* CARBS */}
+              <View style={styles.rowInput}>
                 <Text style={styles.Inn}>Carbs:</Text>
+
                 <TextInput
                   placeholder="0"
                   style={styles.dropdown}
                   value={Gram}
-                  onChangeText={value => setGram(value)}
+                  onChangeText={setGram}
+                  keyboardType="numeric"
                 />
-                <Text>g</Text>
               </View>
-              {/*  */}
-              <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+
+              {/* PROTEIN */}
+              <View style={styles.rowInput}>
                 <Text style={styles.Inn}>Protein:</Text>
+
                 <TextInput
                   placeholder="0"
                   style={styles.dropdown}
                   value={Num}
-                  onChangeText={value => setNum(value)}
+                  onChangeText={setNum}
+                  keyboardType="numeric"
                 />
-                <Text>g</Text>
+              </View>
+
+              {/* BUTTON */}
+              <View style={{ marginHorizontal: 10 }}>
+                <TouchableOpacity style={styles.done} onPress={handleAddFood}>
+                  <Text style={styles.doneText}>
+                    {isEdit ? 'Update' : 'Done'}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
-
-            {/*  */}
-            {/* <View style={styles.counter}>
-              <TouchableOpacity
-                onPress={() => count > 1 && setCount(count - 1)}
-              >
-                <Text style={styles.btn}>−</Text>
-              </TouchableOpacity> */}
-
-            {/* <Text style={styles.number}>{count}</Text> */}
-
-            {/* <TouchableOpacity onPress={() => setCount(count + 1)}>
-                <Text style={styles.btn}>+</Text>
-              </TouchableOpacity>
-            </View> */}
-            {/* </View> */}
-
-            <TouchableOpacity
-              style={styles.done}
-              onPress={() => handleAddFood()}
-            >
-              <Text style={styles.doneText}>Done</Text>
-            </TouchableOpacity>
           </View>
-        </View>
-      </Modal>
-    </View>
+        </Modal>
+      </ScreenWrapper>
+    </ScrollView>
   );
 };
 
@@ -245,7 +306,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopLeftRadius: 45,
     borderTopRightRadius: 45,
-    elevation: 4,
   },
 
   overlay: {
@@ -269,7 +329,6 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 20,
-    //backgroundColor: '#6A2CF3',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -291,44 +350,27 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
   },
 
-  row: {
+  rowInput: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
+    alignItems: 'center',
+    marginBottom: 15,
   },
 
   dropdown: {
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 5,
-    padding: 3,
-    width: '20%',
+    padding: 5,
+    width: '70%',
     marginHorizontal: 10,
-  },
-
-  counter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-  },
-
-  btn: {
-    fontSize: 22,
-    paddingHorizontal: 10,
-  },
-
-  number: {
-    fontSize: 16,
   },
 
   done: {
     backgroundColor: '#6A2CF3',
-    padding: 14,
+    padding: 12,
     borderRadius: 12,
     alignItems: 'center',
+    marginTop: 10,
   },
 
   doneText: {
@@ -336,9 +378,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Poppins-Regular',
   },
+
   Inn: {
     color: '#000',
     fontSize: 15,
     fontFamily: 'Poppins-Regular',
+    width: 60,
   },
 });

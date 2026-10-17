@@ -3,55 +3,58 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
 import TopHeader from '../../components/TopHeader';
 import CalenderMix from '../../components/CalenderMix';
+import ScreenWrapper from '../../components/ScreenWrapper';
 
 const Calender = () => {
   const [selected, setSelected] = useState('2026-03-30');
 
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: '#F2F5FC' }}
-      showsVerticalScrollIndicator={false}
-    >
-      <View style={styles.container}>
-        {/* Header */}
-        <TopHeader screen={'Calendar'} />
+    <ScreenWrapper>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: '#F2F5FC' }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.container}>
+          {/* Header */}
+          <TopHeader screen={'Calendar'} />
 
-        {/* Calendar */}
-        <CalendarProvider date={selected}>
-          <ExpandableCalendar
-            initialPosition="closed"
-            onDayPress={day => setSelected(day.dateString)}
-            markedDates={{
-              [selected]: {
-                selected: true,
-                selectedColor: '#6C3EF4',
-              },
-            }}
-            theme={{
-              selectedDayBackgroundColor: '#691BFB',
-              todayTextColor: '#691BFB',
-              arrowColor: '#000',
-              todayButtonFontFamily: 'Poppins-Regular',
-            }}
-            style={styles.calendar}
-          />
-        </CalendarProvider>
+          {/* Calendar */}
+          <CalendarProvider date={selected}>
+            <ExpandableCalendar
+              initialPosition="closed"
+              onDayPress={day => setSelected(day.dateString)}
+              markedDates={{
+                [selected]: {
+                  selected: true,
+                  selectedColor: '#6C3EF4',
+                },
+              }}
+              theme={{
+                selectedDayBackgroundColor: '#691BFB',
+                todayTextColor: '#691BFB',
+                arrowColor: '#000',
+                todayButtonFontFamily: 'Poppins-Regular',
+              }}
+              style={styles.calendar}
+            />
+          </CalendarProvider>
 
-        {/* Selected Date */}
-        <Text style={styles.dateText}>Selected Date: {selected}</Text>
+          {/* Selected Date */}
+          <Text style={styles.dateText}>Selected Date: {selected}</Text>
 
-        {/* Calories Section */}
-        <View style={styles.kcalContainer}>
-          <Text style={styles.kcalText}>540 Kcal </Text>
-          <Text style={styles.kcalLabel}>total</Text>
+          {/* Calories Section */}
+          <View style={styles.kcalContainer}>
+            <Text style={styles.kcalText}>540 Kcal </Text>
+            <Text style={styles.kcalLabel}>total</Text>
+          </View>
+
+          {/* List / Component */}
+          <View style={styles.mixContainer}>
+            <CalenderMix />
+          </View>
         </View>
-
-        {/* List / Component */}
-        <View style={styles.mixContainer}>
-          <CalenderMix />
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </ScreenWrapper>
   );
 };
 

@@ -1,7 +1,14 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { View } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  View,
+  Dimensions,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const { width } = Dimensions.get('screen');
 
 const Buttoon = ({
   onPress,
@@ -12,40 +19,42 @@ const Buttoon = ({
   icon,
 }) => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
       <TouchableOpacity
-        style={[styles.button, { backgroundColor }, style]}
+        style={[styles.btn, { backgroundColor }, style]}
         onPress={onPress}
         activeOpacity={0.8}
       >
-        <View style={{ flexDirection: 'row' }}>
+        {icon && (
           <Ionicons
             name={icon}
-            size={23}
-            style={{ color: '#fff', marginRight: 15 }}
+            size={20}
+            color={textColor}
+            style={{ marginRight: 8 }}
           />
-          <Text style={[styles.text, { color: textColor }]}>{title}</Text>
-        </View>
+        )}
+
+        <Text style={[styles.text, { color: textColor }]}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
-    // paddingVertical: 14,
+  btn: {
     borderRadius: 10,
-    alignItems: 'center',
     justifyContent: 'center',
-    margin: 20,
-    paddingTop: 21,
-    paddingLeft: 58,
-    paddingRight: 58,
-    paddingBottom: 21,
-    // marginVertical: 10,
-    width: 325,
-    height: 66,
+    alignItems: 'center',
+    flexDirection: 'row',
+
+    margin: 10,
+    padding: 10,
+
+    backgroundColor: '#691BFB',
+    width: width - 70,
+    height: 48,
   },
+
   text: {
     fontSize: 16,
     fontFamily: 'Poppins-Regular',

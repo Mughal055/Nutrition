@@ -28,7 +28,8 @@ const SetGoal = () => {
             fontFamily: 'Poppins-Regular',
             fontSize: 16,
             color: '#B1B5C7',
-            textAlign: 'left',
+            textAlign: 'center',
+            justifyContent: 'center',
             textTransform: 'capitalize',
           }}
         >
@@ -120,8 +121,8 @@ const SetGoal = () => {
       {/*  */}
       <View
         style={{
-          marginHorizontal: 20,
-          marginTop: 100,
+          marginHorizontal: 30,
+          marginTop: 80,
         }}
       >
         <TouchableOpacity style={styles.done}>
@@ -139,16 +140,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#d6d8dd',
-    paddingVertical: 16,
-    paddingHorizontal: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
     color: '#8A8A8A',
-    marginHorizontal: 50,
+    marginHorizontal: 20,
   },
   done: {
     backgroundColor: '#6A2CF3',
-    padding: 14,
+    padding: 10,
     borderRadius: 12,
     alignItems: 'center',
   },
